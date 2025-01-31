@@ -60,6 +60,8 @@
 }
 
 
+/// TMay be integrated/developed further:
+
 // `.jmp` can also be of type `JMPDRV`, Storing a 3x3 JMP map.
 // Like numbers will be compressed using the `X^I` iterator. Whereis X is the cell,
 // and I is the multiplication factor. Each row of tile, is divided with `,`. Run together statements utilize `-`.

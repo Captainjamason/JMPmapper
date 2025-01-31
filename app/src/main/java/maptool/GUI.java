@@ -6,12 +6,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.Desktop.Action;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,6 +27,7 @@ import javax.swing.JTable;
 class CusMenuBar extends JMenuBar {
     public JMenuBar createMenuBar(JLabel label) {
         JMenuBar menuBar = new JMenuBar();
+
         JMenu fmenu = new JMenu("File");
         fmenu.setMnemonic(KeyEvent.VK_F);
         JMenuItem open = new JMenuItem("Open");
@@ -50,9 +53,28 @@ class CusMenuBar extends JMenuBar {
                 }
             }
         });
+        JMenuItem newfile = new JMenuItem("New file");
+        newfile.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileDiag = new JFileChooser();
+                int res = fileDiag.showSaveDialog(fmenu);
+                if(res == JFileChooser.APPROVE_OPTION) {
+                    jmp d = JMPfiles.newFile(fileDiag.getSelectedFile());
+                    System.out.println(d.encodeJmp(d.testData, "TEST"));
+                }
+            }
+        });
+        fmenu.add(newfile);
         fmenu.add(open);
         fmenu.add(save);
+
+        JMenu oMenu = new JMenu("Options");
+        oMenu.setMnemonic(KeyEvent.VK_O);
+        JCheckBoxMenuItem compOneFile = new JCheckBoxMenuItem("Compile one file");
+        oMenu.add(compOneFile);
+
         menuBar.add(fmenu);
+        menuBar.add(oMenu);
         return menuBar;
     }
 }
