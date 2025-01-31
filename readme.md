@@ -1,0 +1,2 @@
+# JMP Mapping Tool
+JMP Files are meant to be a small, lightweight, format used in 2D game development for efficiently creating maps. This tool is written purely for my own usage, as JMP files will be integrated into [this](https://github.com/Captainjamason/Unnamed) repository. 

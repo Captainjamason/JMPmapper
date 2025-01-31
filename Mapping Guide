@@ -1,0 +1,73 @@
+// General Format //
+1 0 0 0 0 0 0 0         0 = Empty/Floor
+0 1 0 0 0 0 0 0         1 = Wall
+0 0 1 0 0 0 0 0         2 = Door/Gate
+0 0 0 1 0 0 0 0         3 = Pillar
+0 0 0 0 1 0 0 0         4 = Chest
+0 0 0 0 0 1 0 0         5 = Outdoor_Collider
+0 0 0 0 0 0 1 0         6 = Spawn_Point
+0 0 0 0 0 0 0 1         7 = Torch/Light
+
+// Example, Start Room //
+1 1 1 2 2 1 1 1         ------| |------
+1 4 0 0 0 0 4 1         | #         # |
+1 0 0 0 0 0 0 1         |             |
+1 0 3 0 0 3 0 1         |   ^     ^   |
+1 0 0 0 0 0 0 1         |             |
+1 0 0 0 0 0 0 1         |             |
+1 0 0 6 6 0 0 1         |     * *     |
+1 1 1 1 1 1 1 1         ---------------
+
+
+
+
+/// .jmp specifications ///
+// The `.jmp` file is a simple form of tilemapping utilized in ----- engine.
+// It requires minimal forward configuration, and is designed for compact simplicity,
+// A minimum of two files are required for integration: `global.jmp` and `{mapname}.jmp`
+
+// Example `global.jmp`
+// "{ID}:{TEX_FILE}:{TYPE};
+{$GLB
+   %
+   0:floor.bmp:background;
+   1:wall.bmp:wall;
+   2:door.bmp:door;
+   3:pillar.bmp:wall;
+   4:chest.bmp:chest;
+   5:trans.bmp:outdoor_collider;
+   6:trans.bmp:spawn;
+   7:torch.bmp:lightSource;
+   #
+}
+
+
+// Example `.jmp` file:
+// $JMP is the check for the correct filetype, *mapname is utilized to give a section
+// or map title to the application.
+
+{$JMP*map1
+    %
+    0,0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0,0;
+    #
+}
+
+
+// `.jmp` can also be of type `JMPDRV`, Storing a 3x3 JMP map.
+// Like numbers will be compressed using the `X^I` iterator. Whereis X is the cell,
+// and I is the multiplication factor. Each row of tile, is divided with `,`. Run together statements utilize `-`.
+// This jmp, the center tile (5) is a basic room, with walls on all 4 sides. 
+{$JMPDRV*jmpdrv1
+    %
+    0^8,0^8,0^8,0^8,0^8,0^8,0^8,0^8; 0^8,0^8,0^8,0^8,0^8,0^8,0^8,0^8; 0^8,0^8,0^8,0^8,0^8,0^8,0^8,0^8;
+    0^8,0^8,0^8,0^8,0^8,0^8,0^8,0^8; 1^8,1-0^7-1,1-0^7-1,1-0^7-1,1-0^7-1,1-0^7-1,1-0^7-1,1^8; 0^8,0^8,0^8,0^8,0^8,0^8,0^8,0^8;
+    0^8,0^8,0^8,0^8,0^8,0^8,0^8,0^8; 0^8,0^8,0^8,0^8,0^8,0^8,0^8,0^8; 0^8,0^8,0^8,0^8,0^8,0^8,0^8,0^8;
+    #
+}
